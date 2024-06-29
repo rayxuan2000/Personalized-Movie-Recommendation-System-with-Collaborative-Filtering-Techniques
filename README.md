@@ -10,6 +10,8 @@ The dataset source is [here](https://grouplens.org/datasets/movielens/latest/). 
 
  1. About matrix factorization and ALS:
    - In the case of collaborative filtering, matrix factorization algorithms work by decomposing the user-item interaction matrix into the product of two lower dimensionality rectangular matrices. One matrix can be seen as the user matrix where rows represent users and columns are latent factors. The other matrix is the item matrix where rows are latent factors and columns represent items. （Imagine it in your mind）.
+   - With matrix factorization, less-known movies can have rich latent representations as much as popular movies have, which improves recommender’s ability to recommend less-known movies.
+   - Alternating Least Square (ALS) is also a matrix factorization algorithm (solving loss function) and it runs itself in a parallel fashion. ALS alternates between fixing one matrix and solving for the other. ALS is doing a pretty good job at solving scalability and **sparseness** of the Ratings data, and it’s simple and scales well to very large datasets. Specifically: First, it fixes the item factors and solves for the user factors using least squares optimization. Then, it fixes the user factors and solves for the item factors using least squares optimization. Based on some notes, use non-null value in original user-item matrix to train the model. Numbers in user matrix and item matrix could be random at first. After training, multiply back to get the missing value.
  2. 
 
 ## Summary
