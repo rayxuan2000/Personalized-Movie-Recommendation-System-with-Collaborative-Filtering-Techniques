@@ -9,7 +9,8 @@ The dataset source is [here](https://grouplens.org/datasets/movielens/latest/). 
 ## Notes
 
  1. About matrix factorization and ALS:
-   -
+   - f
+ 3. 
 
 ## Summary
 - Built data ETL pipeline to analyze movie rating dataset and conducted online analytical processing (OLAP) with Spark SQL.
