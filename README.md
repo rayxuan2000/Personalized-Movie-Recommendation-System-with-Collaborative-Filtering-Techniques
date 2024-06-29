@@ -17,6 +17,9 @@ The dataset source is [here](https://grouplens.org/datasets/movielens/latest/). 
  4. About autoencoder: First do indexing for user and movie (actually encoding from category to numerical), convert it to sparse matrix (row denotes user [each input] and column denotes item), build autoencoder (the encoder reduces the dimensionality of the input, while the decoder reconstructs the input from the encoded representation, with data normalization before, encoding_dim is a hyperparameter), train, do recommendation.
 
 ## Summary
-- Built data ETL pipeline to analyze movie rating dataset and conducted online analytical processing (OLAP) with Spark SQL.
-- Used Spark ML to predict ratings, leveraging Alternating Least Square (ALS) algorithm (matrix factorizarion based) for a large-scale dataset with resulting RMSE = 0.65.
-- Utilized above trained model to provide personalized movie recommendation (top k liked) and developed user-based approaches to handle system cold-start problems. 
+- Built data ETL pipeline with parameterized code to analyze movie rating dataset for personalized recommendation;
+conducted OLAP with Spark SQL APIs to summarize data at various levels of granularity.
+- Leveraged Spark ML APIs to predict ratings using ALS matrix factorization machine, effectively addressing sparsity
+issue and uncovering latent information; developed an autoencoder structure to achieve more precise outcomes.
+- Employed the trained model with 3 customized distance metrics to group similar items and developed item-based ap-
+proaches to tackle user cold-start problems; reduced rating RMSE loss by 20% with resulting RMSE = 0.65.
