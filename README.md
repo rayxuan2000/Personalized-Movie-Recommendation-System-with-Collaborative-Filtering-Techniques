@@ -9,8 +9,8 @@ The dataset source is [here](https://grouplens.org/datasets/movielens/latest/). 
 ## Notes
 
  1. About matrix factorization and ALS:
-   - f
- 3. 
+   - In the case of collaborative filtering, matrix factorization algorithms work by decomposing the user-item interaction matrix into the product of two lower dimensionality rectangular matrices. One matrix can be seen as the user matrix where rows represent users and columns are latent factors. The other matrix is the item matrix where rows are latent factors and columns represent items. （Imagine it in your mind）.
+ 2. 
 
 ## Summary
 - Built data ETL pipeline to analyze movie rating dataset and conducted online analytical processing (OLAP) with Spark SQL.
