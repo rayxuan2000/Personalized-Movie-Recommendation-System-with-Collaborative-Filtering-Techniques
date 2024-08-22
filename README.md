@@ -16,6 +16,49 @@ The dataset source is [here](https://grouplens.org/datasets/movielens/latest/). 
  3. When getting similar movies, I used three metrics: Euclidean distance, cosine similarity and LSH(Locality-sensitive hashing). Locality-Sensitive Hashing (LSH) is used in recommendation systems to efficiently find similar items or users. LSH is particularly useful for large-scale data, where calculating pairwise similarities directly would be computationally expensive. LSH is a technique for hashing high-dimensional data points so that similar points map to the same hash bucket with high probability. This allows for efficient approximate nearest neighbor search.
  4. About autoencoder: First do indexing for user and movie (actually encoding from category to numerical), convert it to sparse matrix (row denotes user [each input] and column denotes item), build autoencoder (the encoder reduces the dimensionality of the input, while the decoder reconstructs the input from the encoded representation, with data normalization before, encoding_dim is a hyperparameter), train, do recommendation.
 
+Original data:
+```
++------+-------+------+
+|userId|movieId|rating|
++------+-------+------+
+|     1|      1|   4.0|
+|     1|      3|   4.0|
+|     1|      6|   4.0|
+|     1|     47|   5.0|
+|     1|     50|   5.0|
++------+-------+------+
+```
+
+Do indexing:
+```
++------+-------+------+---------+----------+
+|userId|movieId|rating|userIndex|movieIndex|
++------+-------+------+---------+----------+
+|     1|      1|   4.0|    111.0|      11.0|
+|     1|      3|   4.0|    111.0|     422.0|
+|     1|      6|   4.0|    111.0|     129.0|
+|     1|     47|   5.0|    111.0|      15.0|
+|     1|     50|   5.0|    111.0|      14.0|
++------+-------+------+---------+----------+
+```
+
+Convert to a sparse matrix:
+```
+movieIndex	0	  1	  2	  3	  4	  5	  6	  7	  8	  9	 ...	9714	9715	9716	9717	9718	9719	9720	9721	9722	9723
+userIndex																					
+0	        5.0	5.0	5.0	4.0	5.0	5.0	4.0	5.0	5.0	4.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+1	        3.5	4.0	5.0	3.0	5.0	5.0	4.0	3.5	4.5	0.0	...	0.0	0.0	0.0	0.0	3.0	0.0	0.0	0.0	0.0	0.0
+2	        3.0	5.0	4.0	4.5	4.5	4.0	4.5	3.0	4.0	5.0	...	3.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+3	        3.0	0.0	5.0	5.0	2.0	5.0	3.0	0.0	3.0	0.0	...	0.0	2.0	3.0	0.0	0.0	0.0	0.0	3.0	0.0	3.0
+4	        4.5	4.5	5.0	4.0	4.0	3.0	3.5	4.5	4.5	4.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+...	      ...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...	...
+605	      0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+606	      0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+607	      3.0	0.0	5.0	0.0	0.0	0.0	4.0	0.0	0.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+608	      0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+609	      0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
+```
+
 ## Summary
 - Built data ETL pipeline with parameterized code to analyze movie rating dataset for personalized recommendation;
 conducted OLAP with Spark SQL APIs to summarize data at various levels of granularity.
