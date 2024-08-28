@@ -59,6 +59,8 @@ userIndex
 609	      0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	...	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0	0.0
 ```
 
+Notice that this matrix is sparse, each user vector (horizontal) or item vector (vertical) is also sparse. If we want to build an item-based(user-based) autoencoder, then we take input as each partially observed item vector(user vector), project it into a low-dimensional latent space, and then reconstruct in the outer space to predict missing values for purposes of recommendation. Also pay attention! **We account for the fact that each input is partially observed by only updating during backpropagation those weights that are associated with observed inputs, as is common in matrix factorisation approaches.**
+
 ## Summary
 - Built data ETL pipeline with parameterized code to analyze movie rating dataset for personalized recommendation;
 conducted OLAP with Spark SQL APIs to summarize data at various levels of granularity.
